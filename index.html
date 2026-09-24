@@ -42,4 +42,28 @@
       });
     </script>
   </body>
+  <script>
+  // This script runs from GitHub but executes inside your Webflow page!
+  if (window.top !== window.self) {
+    window.top.document.addEventListener("DOMContentLoaded", function() {
+      // Find the plain image placeholder you made in Webflow
+      const webflowImg = window.top.document.querySelector('.game-container');
+      
+      if (webflowImg && webflowImg.tagName === 'IMG') {
+        // Build the game frame on the fly
+        const gameFrame = window.top.document.createElement('iframe');
+        gameFrame.src = window.location.href; // Points to this exact game file
+        gameFrame.style.width = "100%";
+        gameFrame.style.height = "100%";
+        gameFrame.style.border = "none";
+        gameFrame.style.aspectRatio = "16/10";
+        gameFrame.setAttribute('allowfullscreen', 'true');
+        
+        // Swap out the picture for your live game frame!
+        webflowImg.parentNode.replaceChild(gameFrame, webflowImg);
+      }
+    });
+  }
+</script>
+
 </html>
